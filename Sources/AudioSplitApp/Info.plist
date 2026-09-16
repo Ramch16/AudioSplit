@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.audiosplit.AudioSplit</string>
+	<key>CFBundleName</key>
+	<string>AudioSplit</string>
+	<key>CFBundleDisplayName</key>
+	<string>AudioSplit</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.4</string>
+	<key>CFBundleVersion</key>
+	<string>4</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>14.4</string>
+	<key>NSAudioCaptureUsageDescription</key>
+	<string>AudioSplit captures audio from the apps you route so it can play them through the output device you chose. Audio is never recorded, stored or sent anywhere.</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>MIT licensed.</string>
+</dict>
+</plist>

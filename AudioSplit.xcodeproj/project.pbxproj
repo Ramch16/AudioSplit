@@ -1,0 +1,311 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C802D52D8EA5A84DBF3AE79F /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9F4C4CE2566233348FB258 /* App.swift */; };
+		97948CF7D77A7DC07ACE1492 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643189710E29185BEA655CE6 /* AppModel.swift */; };
+		CAEE737DAF1A13861BD61168 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92465AAB9906E55018BF6198 /* Diagnostics.swift */; };
+		5E295999FD756144778551F3 /* HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241072A539C3E4B631F6A0F1 /* HotKey.swift */; };
+		DC91F14437424DE5FE635466 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A996E6875B22F41B89B31 /* ActivityView.swift */; };
+		70FE066782C99181709A72CD /* AppPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B306CD6B87F2D79DF756B8BA /* AppPickerView.swift */; };
+		A0C847DA118095C5CEC5ABFA /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7478E2B6900CAD79025AD42 /* DevicesView.swift */; };
+		BF35D7020BBA15439D785E46 /* InputPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C962574B0B28B94B3178DE /* InputPickerView.swift */; };
+		42359FE7AD67540C65FE1F7C /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BD0346218FC7464E9A2C45 /* MainWindowView.swift */; };
+		1AF783991E740015CC6335EB /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BA088B37BE9E37ABB6D400 /* MenuBarView.swift */; };
+		CEF6651C630F25C48660C7B7 /* RouteEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF902A46050FFC887CDD7EA /* RouteEditorView.swift */; };
+		36BCD0E76DB9A6F4DBA0252C /* RoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C40699BD1D4780E16863AA /* RoutesView.swift */; };
+		152362505F7297BA2F257A07 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 31BD495F249DABAA088B8800 /* AppIcon.icns */; };
+		392F4D5A2758AC61B446A9FF /* AudioSplitEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 3BB3463FB1AF580002948253 /* AudioSplitEngine */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1C9F4C4CE2566233348FB258 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "App.swift"; path = "Sources/AudioSplitApp/App.swift"; sourceTree = "<group>"; };
+		643189710E29185BEA655CE6 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppModel.swift"; path = "Sources/AudioSplitApp/AppModel.swift"; sourceTree = "<group>"; };
+		92465AAB9906E55018BF6198 /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Diagnostics.swift"; path = "Sources/AudioSplitApp/Diagnostics.swift"; sourceTree = "<group>"; };
+		241072A539C3E4B631F6A0F1 /* HotKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HotKey.swift"; path = "Sources/AudioSplitApp/HotKey.swift"; sourceTree = "<group>"; };
+		3F1A996E6875B22F41B89B31 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ActivityView.swift"; path = "Sources/AudioSplitApp/UI/ActivityView.swift"; sourceTree = "<group>"; };
+		B306CD6B87F2D79DF756B8BA /* AppPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppPickerView.swift"; path = "Sources/AudioSplitApp/UI/AppPickerView.swift"; sourceTree = "<group>"; };
+		D7478E2B6900CAD79025AD42 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DevicesView.swift"; path = "Sources/AudioSplitApp/UI/DevicesView.swift"; sourceTree = "<group>"; };
+		F4C962574B0B28B94B3178DE /* InputPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "InputPickerView.swift"; path = "Sources/AudioSplitApp/UI/InputPickerView.swift"; sourceTree = "<group>"; };
+		E1BD0346218FC7464E9A2C45 /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainWindowView.swift"; path = "Sources/AudioSplitApp/UI/MainWindowView.swift"; sourceTree = "<group>"; };
+		26BA088B37BE9E37ABB6D400 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MenuBarView.swift"; path = "Sources/AudioSplitApp/UI/MenuBarView.swift"; sourceTree = "<group>"; };
+		1AF902A46050FFC887CDD7EA /* RouteEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RouteEditorView.swift"; path = "Sources/AudioSplitApp/UI/RouteEditorView.swift"; sourceTree = "<group>"; };
+		F8C40699BD1D4780E16863AA /* RoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RoutesView.swift"; path = "Sources/AudioSplitApp/UI/RoutesView.swift"; sourceTree = "<group>"; };
+		31BD495F249DABAA088B8800 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "AppIcon.icns"; path = "Resources/AppIcon.icns"; sourceTree = "<group>"; };
+		28BF839B984C38F5F78F80A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info.plist"; path = "Sources/AudioSplitApp/Info.plist"; sourceTree = "<group>"; };
+		B258B444D1A0119172323780 /* AudioSplit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioSplit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A8AE17D7754CD02205A5280D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				392F4D5A2758AC61B446A9FF /* AudioSplitEngine in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		748B651F9CC61D1D6BD106B4 = {
+			isa = PBXGroup;
+			children = (
+				5E8D3B5C621D50729189972C /* AudioSplitApp */,
+				1190A5D32F01D0D71382B7C3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5E8D3B5C621D50729189972C /* AudioSplitApp */ = {
+			isa = PBXGroup;
+			children = (
+				1C9F4C4CE2566233348FB258 /* App.swift */,
+				643189710E29185BEA655CE6 /* AppModel.swift */,
+				92465AAB9906E55018BF6198 /* Diagnostics.swift */,
+				241072A539C3E4B631F6A0F1 /* HotKey.swift */,
+				31BD495F249DABAA088B8800 /* AppIcon.icns */,
+				28BF839B984C38F5F78F80A8 /* Info.plist */,
+				3C7A3A8197F0FA0604E74CAD /* UI */,
+			);
+			name = AudioSplitApp;
+			sourceTree = "<group>";
+		};
+		3C7A3A8197F0FA0604E74CAD /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				3F1A996E6875B22F41B89B31 /* ActivityView.swift */,
+				B306CD6B87F2D79DF756B8BA /* AppPickerView.swift */,
+				D7478E2B6900CAD79025AD42 /* DevicesView.swift */,
+				F4C962574B0B28B94B3178DE /* InputPickerView.swift */,
+				E1BD0346218FC7464E9A2C45 /* MainWindowView.swift */,
+				26BA088B37BE9E37ABB6D400 /* MenuBarView.swift */,
+				1AF902A46050FFC887CDD7EA /* RouteEditorView.swift */,
+				F8C40699BD1D4780E16863AA /* RoutesView.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		1190A5D32F01D0D71382B7C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B258B444D1A0119172323780 /* AudioSplit.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		796431F2D32768B47E2BECB6 /* AudioSplit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB3F85AF0B73662DB3D37E63 /* Build configuration list for PBXNativeTarget "AudioSplit" */;
+			buildPhases = (
+				BE0E117FCAE65A6FB51A150D /* Sources */,
+				A8AE17D7754CD02205A5280D /* Frameworks */,
+				39D6E36107CAE66117D4B4F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioSplit;
+			packageProductDependencies = (
+				3BB3463FB1AF580002948253 /* AudioSplitEngine */,
+			);
+			productName = AudioSplit;
+			productReference = B258B444D1A0119172323780 /* AudioSplit.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		244210E48437B6556980A702 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					796431F2D32768B47E2BECB6 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = A15C1660503C9D18B9702A73 /* Build configuration list for PBXProject "AudioSplit" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 748B651F9CC61D1D6BD106B4;
+			packageReferences = (
+				D9585EAD61A1E83CB7F3B6EB /* XCLocalSwiftPackageReference "." */,
+			);
+			productRefGroup = 1190A5D32F01D0D71382B7C3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				796431F2D32768B47E2BECB6 /* AudioSplit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		39D6E36107CAE66117D4B4F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				152362505F7297BA2F257A07 /* AppIcon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE0E117FCAE65A6FB51A150D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C802D52D8EA5A84DBF3AE79F /* App.swift in Sources */,
+				97948CF7D77A7DC07ACE1492 /* AppModel.swift in Sources */,
+				CAEE737DAF1A13861BD61168 /* Diagnostics.swift in Sources */,
+				5E295999FD756144778551F3 /* HotKey.swift in Sources */,
+				DC91F14437424DE5FE635466 /* ActivityView.swift in Sources */,
+				70FE066782C99181709A72CD /* AppPickerView.swift in Sources */,
+				A0C847DA118095C5CEC5ABFA /* DevicesView.swift in Sources */,
+				BF35D7020BBA15439D785E46 /* InputPickerView.swift in Sources */,
+				42359FE7AD67540C65FE1F7C /* MainWindowView.swift in Sources */,
+				1AF783991E740015CC6335EB /* MenuBarView.swift in Sources */,
+				CEF6651C630F25C48660C7B7 /* RouteEditorView.swift in Sources */,
+				36BCD0E76DB9A6F4DBA0252C /* RoutesView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1718AAF4E5CB68E01B8646DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		33463152ED1CFFD4190C6F38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		71A517A1A22C3544001A82D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Sources/AudioSplitApp/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.audiosplit.AudioSplit;
+				PRODUCT_NAME = AudioSplit;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		A4B3E1A33B72091D0E6E439D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Sources/AudioSplitApp/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 0.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.audiosplit.AudioSplit;
+				PRODUCT_NAME = AudioSplit;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A15C1660503C9D18B9702A73 /* Build configuration list for PBXProject "AudioSplit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1718AAF4E5CB68E01B8646DA /* Debug */,
+				33463152ED1CFFD4190C6F38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB3F85AF0B73662DB3D37E63 /* Build configuration list for PBXNativeTarget "AudioSplit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71A517A1A22C3544001A82D7 /* Debug */,
+				A4B3E1A33B72091D0E6E439D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		D9585EAD61A1E83CB7F3B6EB /* XCLocalSwiftPackageReference "." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = .;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3BB3463FB1AF580002948253 /* AudioSplitEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AudioSplitEngine;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 244210E48437B6556980A702 /* Project object */;
+}

@@ -1,0 +1,10 @@
+.build/
+.swiftpm/
+.DS_Store
+build/
+dist/
+DerivedData/
+*.xcuserdatad
+xcuserdata/
+AudioSplit.xcodeproj/project.xcworkspace/
+Resources/AppIcon.iconset/
