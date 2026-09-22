@@ -12,6 +12,7 @@ import Foundation
 ///
 /// This happened during development — a leftover milestone harness held a tap on
 /// Safari, and the main app's Safari route looked perfect while doing nothing.
+@MainActor
 enum SingleInstance {
     /// True when this process is the only AudioSplit running.
     ///

@@ -38,8 +38,8 @@ let package = Package(
         .executableTarget(
             name: "AudioSplitApp",
             dependencies: ["AudioSplitEngine"],
-            // Copied into the bundle by Scripts/make-app.sh, not compiled.
-            exclude: ["Info.plist"],
+            // Consumed by make-app.sh and codesign, never compiled.
+            exclude: ["Info.plist", "AudioSplit.entitlements"],
             swiftSettings: [.swiftLanguageMode(.v6)]
         ),
         .testTarget(

@@ -5,10 +5,15 @@
 #
 #   shasum -a 256 dist/AudioSplit-1.0.dmg
 #
-# The cask deliberately does not exist until there is a *notarized* DMG behind
-# it. Homebrew installs bypass the Gatekeeper prompt a user would otherwise see,
-# so shipping an unnotarized build this way hands people an app macOS would
-# have refused, without telling them.
+# Homebrew quarantines cask installs by default — `Cask::Download#quarantine`
+# calls `Quarantine.cask!` on the download and `Quarantine.propagate` carries the
+# attribute onto the installed app. `--no-quarantine` is an opt-out the user
+# passes, not the default.
+#
+# So an unnotarized build installed this way is blocked by Gatekeeper exactly as
+# a manual download would be. That is not deceptive, but it is a broken install:
+# the app lands in /Applications and refuses to open. Ship the cask only once
+# the DMG is notarized, or expect every user to hit that wall.
 cask "audiosplit" do
   version "1.0"
   sha256 "REPLACE_WITH_SHA256_OF_THE_RELEASED_DMG"
