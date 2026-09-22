@@ -1,4 +1,5 @@
 import AudioSplitEngine
+import AudioSplitShared
 import CoreAudio
 import Foundation
 

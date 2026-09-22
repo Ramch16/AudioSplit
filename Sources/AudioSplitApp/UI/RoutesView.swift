@@ -1,4 +1,5 @@
 import AudioSplitEngine
+import AudioSplitShared
 import SwiftUI
 
 /// Per-app routing: the thing AudioSplit exists for.

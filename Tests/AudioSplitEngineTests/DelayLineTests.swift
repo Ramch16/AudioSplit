@@ -1,6 +1,7 @@
 import Foundation
 import Testing
 
+import AudioSplitShared
 @testable import AudioSplitEngine
 
 /// The delay line is the one piece of realtime DSP in AudioSplit, so it is

@@ -1,4 +1,5 @@
 import AudioSplitEngine
+import AudioSplitShared
 import SwiftUI
 
 /// What is actually happening right now: which apps are producing audio, where

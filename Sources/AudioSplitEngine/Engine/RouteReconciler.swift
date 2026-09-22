@@ -1,3 +1,4 @@
+import AudioSplitShared
 import Foundation
 
 // Deliberately no Core Audio import. Everything here is pure value-to-value so

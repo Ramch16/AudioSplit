@@ -1,4 +1,5 @@
 import AudioSplitEngine
+import AudioSplitShared
 import SwiftUI
 
 /// One row: an app, where it goes, how loud, and whether it is actually working.

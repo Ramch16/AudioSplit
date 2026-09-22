@@ -84,7 +84,7 @@ public struct Route: Identifiable, Hashable, Codable, Sendable {
 }
 
 /// Why a route is or is not currently moving audio.
-public enum RouteStatus: Hashable, Sendable {
+public enum RouteStatus: Hashable, Codable, Sendable {
     /// Audio is being captured and sent to the destination.
     case active
     /// Configured and valid, but the app is not producing any audio processes.

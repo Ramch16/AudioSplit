@@ -6,9 +6,13 @@ let package = Package(
     platforms: [
         // Process taps require macOS 14.2; AudioSplit requires 14.4 for the
         // aggregate-device-with-tap behaviour it relies on.
-        .macOS("14.4")
+        .macOS("14.4"),
+        // The shared models and wire protocol build for iOS so a phone or iPad
+        // can act as a remote. No routing happens there — iOS has no HAL.
+        .iOS("17.0")
     ],
     products: [
+        .library(name: "AudioSplitShared", targets: ["AudioSplitShared"]),
         .library(name: "AudioSplitEngine", targets: ["AudioSplitEngine"]),
         .executable(name: "AudioSplitApp", targets: ["AudioSplitApp"]),
         .executable(name: "audiosplit-probe", targets: ["audiosplit-probe"]),
@@ -16,10 +20,14 @@ let package = Package(
         .executable(name: "audiosplit-m3", targets: ["audiosplit-m3"]),
     ],
     targets: [
+        .target(
+            name: "AudioSplitShared",
+            swiftSettings: [.swiftLanguageMode(.v6)]
+        ),
         .target(name: "CAudioSplitAtomics"),
         .target(
             name: "AudioSplitEngine",
-            dependencies: ["CAudioSplitAtomics"],
+            dependencies: ["CAudioSplitAtomics", "AudioSplitShared"],
             swiftSettings: [.swiftLanguageMode(.v6)]
         ),
         .executableTarget(
@@ -36,7 +44,7 @@ let package = Package(
         ),
         .testTarget(
             name: "AudioSplitEngineTests",
-            dependencies: ["AudioSplitEngine"],
+            dependencies: ["AudioSplitEngine", "AudioSplitShared"],
             swiftSettings: [.swiftLanguageMode(.v6)]
         ),
         .executableTarget(

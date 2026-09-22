@@ -1,6 +1,7 @@
 import Foundation
 import Testing
 
+import AudioSplitShared
 @testable import AudioSplitEngine
 
 // The reconciler is the one part of the engine that can be tested exhaustively

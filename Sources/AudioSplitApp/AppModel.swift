@@ -1,5 +1,6 @@
 import AppKit
 import AudioSplitEngine
+import AudioSplitShared
 import Foundation
 import Observation
 

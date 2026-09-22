@@ -1,3 +1,4 @@
+import AudioSplitShared
 import CAudioSplitAtomics
 import CoreAudio
 import Foundation

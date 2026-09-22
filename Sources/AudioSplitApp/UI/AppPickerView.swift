@@ -1,4 +1,5 @@
 import AudioSplitEngine
+import AudioSplitShared
 import SwiftUI
 
 /// Pick an app to route. Apps currently making noise are listed first, because

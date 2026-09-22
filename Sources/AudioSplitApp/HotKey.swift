@@ -1,4 +1,5 @@
 import AudioSplitEngine
+import AudioSplitShared
 import Carbon.HIToolbox
 import Foundation
 
