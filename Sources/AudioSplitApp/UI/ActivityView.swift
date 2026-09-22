@@ -14,12 +14,35 @@ struct ActivityView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
+                if !model.conflictingProcesses.isEmpty { conflictWarning }
                 playingSection
                 if !model.idleAudioApps.isEmpty { idleSection }
                 engineSection
             }
             .padding(14)
         }
+    }
+
+    /// Another AudioSplit build can hold a tap on the same app, and neither
+    /// side can detect it — routes look healthy while no audio moves.
+    private var conflictWarning: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Label(
+                "Another AudioSplit build is running",
+                systemImage: "exclamationmark.triangle.fill"
+            )
+            .font(.callout.bold())
+            .foregroundStyle(.orange)
+            Text(model.conflictingProcesses.joined(separator: ", "))
+                .font(.caption)
+            Text("Each copy captures apps independently. If both capture the same app, its audio can disappear while every route still looks Active. Quit the other copy.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.orange.opacity(0.1), in: RoundedRectangle(cornerRadius: 8))
     }
 
     private var playingSection: some View {

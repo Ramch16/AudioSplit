@@ -11,6 +11,7 @@
 		97948CF7D77A7DC07ACE1492 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643189710E29185BEA655CE6 /* AppModel.swift */; };
 		CAEE737DAF1A13861BD61168 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92465AAB9906E55018BF6198 /* Diagnostics.swift */; };
 		5E295999FD756144778551F3 /* HotKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241072A539C3E4B631F6A0F1 /* HotKey.swift */; };
+		18A1C989068A3A52F24517D7 /* SingleInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521A83DD7D9A5A6339DCED00 /* SingleInstance.swift */; };
 		DC91F14437424DE5FE635466 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A996E6875B22F41B89B31 /* ActivityView.swift */; };
 		70FE066782C99181709A72CD /* AppPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B306CD6B87F2D79DF756B8BA /* AppPickerView.swift */; };
 		A0C847DA118095C5CEC5ABFA /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7478E2B6900CAD79025AD42 /* DevicesView.swift */; };
@@ -35,6 +36,7 @@
 		643189710E29185BEA655CE6 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppModel.swift"; path = "Sources/AudioSplitApp/AppModel.swift"; sourceTree = "<group>"; };
 		92465AAB9906E55018BF6198 /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Diagnostics.swift"; path = "Sources/AudioSplitApp/Diagnostics.swift"; sourceTree = "<group>"; };
 		241072A539C3E4B631F6A0F1 /* HotKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HotKey.swift"; path = "Sources/AudioSplitApp/HotKey.swift"; sourceTree = "<group>"; };
+		521A83DD7D9A5A6339DCED00 /* SingleInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "SingleInstance.swift"; path = "Sources/AudioSplitApp/SingleInstance.swift"; sourceTree = "<group>"; };
 		3F1A996E6875B22F41B89B31 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ActivityView.swift"; path = "Sources/AudioSplitApp/UI/ActivityView.swift"; sourceTree = "<group>"; };
 		B306CD6B87F2D79DF756B8BA /* AppPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppPickerView.swift"; path = "Sources/AudioSplitApp/UI/AppPickerView.swift"; sourceTree = "<group>"; };
 		D7478E2B6900CAD79025AD42 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DevicesView.swift"; path = "Sources/AudioSplitApp/UI/DevicesView.swift"; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				643189710E29185BEA655CE6 /* AppModel.swift */,
 				92465AAB9906E55018BF6198 /* Diagnostics.swift */,
 				241072A539C3E4B631F6A0F1 /* HotKey.swift */,
+				521A83DD7D9A5A6339DCED00 /* SingleInstance.swift */,
 				3F1A996E6875B22F41B89B31 /* ActivityView.swift */,
 				B306CD6B87F2D79DF756B8BA /* AppPickerView.swift */,
 				D7478E2B6900CAD79025AD42 /* DevicesView.swift */,
@@ -199,6 +202,7 @@
 				97948CF7D77A7DC07ACE1492 /* AppModel.swift in Sources */,
 				CAEE737DAF1A13861BD61168 /* Diagnostics.swift in Sources */,
 				5E295999FD756144778551F3 /* HotKey.swift in Sources */,
+				18A1C989068A3A52F24517D7 /* SingleInstance.swift in Sources */,
 				DC91F14437424DE5FE635466 /* ActivityView.swift in Sources */,
 				70FE066782C99181709A72CD /* AppPickerView.swift in Sources */,
 				A0C847DA118095C5CEC5ABFA /* DevicesView.swift in Sources */,

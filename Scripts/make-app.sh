@@ -51,11 +51,19 @@ if [ "$PRODUCT" = "AudioSplitApp" ]; then
   cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 fi
 
+# Hardened Runtime is required for notarization, so build with it on from the
+# start rather than discovering at release time that taps stop working under it.
+# HARDENED=0 disables it for comparison when debugging a capture failure.
+SIGN_ARGS=(--force --timestamp=none)
+if [ "$PRODUCT" = "AudioSplitApp" ] && [ "${HARDENED:-1}" = "1" ]; then
+  SIGN_ARGS+=(--options runtime --entitlements Sources/AudioSplitApp/AudioSplit.entitlements)
+fi
+
 if [ -n "$IDENTITY" ]; then
-  codesign --force --sign "$IDENTITY" --timestamp=none "$APP"
+  codesign "${SIGN_ARGS[@]}" --sign "$IDENTITY" "$APP"
   echo "signed with: $IDENTITY"
 else
-  codesign --force --sign - "$APP"
+  codesign "${SIGN_ARGS[@]}" --sign - "$APP"
   echo "signed ad-hoc (no Apple Development identity found)"
 fi
 

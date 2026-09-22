@@ -22,6 +22,8 @@ final class AppModel {
     private(set) var hotKeyFailed = false
     private(set) var remoteClientCount = 0
     private(set) var remoteError: String?
+    /// Other AudioSplit builds running right now; each can silently steal taps.
+    private(set) var conflictingProcesses: [String] = []
     private(set) var audibleApps: [AudibleApp] = []
     private(set) var levels: [Route.ID: Float] = [:]
     private(set) var lastError: String?
@@ -54,6 +56,16 @@ final class AppModel {
     private let ownBundleID = Bundle.main.bundleIdentifier ?? "com.audiosplit.AudioSplit"
 
     init() {
+        // First thing, before anything is loaded or started. SwiftUI constructs
+        // this @State property before any NSApplicationDelegate callback runs,
+        // so a check in the delegate is already too late — by then a second copy
+        // has loaded routes, registered the hotkey and opened its remote
+        // listener, and is one reconcile away from creating competing taps.
+        guard SingleInstance.claim() else {
+            SingleInstance.surrenderToExistingInstance()
+            return
+        }
+
         do {
             let document = try store.load()
             routes = document.routes
@@ -262,6 +274,7 @@ final class AppModel {
             defaultOutputUID = try DeviceStore.defaultOutputDeviceID()
                 .flatMap { DeviceStore.info(for: $0)?.uid }
             refreshDeviceControls()
+            conflictingProcesses = SingleInstance.conflictingProcesses()
             audibleApps = try AudioProcessController.audibleApps(
                 excludingBundleIDs: [ownBundleID],
                 // The milestone harnesses ship their own bundle IDs, so a plain

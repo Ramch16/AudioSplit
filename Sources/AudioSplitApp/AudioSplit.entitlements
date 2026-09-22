@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	    Audio capture. Process taps are gated on this the same way the
+	    microphone is, and under Hardened Runtime the entitlement has to be
+	    declared or the TCC grant cannot be exercised.
+
+	    Note what is deliberately absent: no App Sandbox. Process taps and
+	    aggregate devices do not work inside the sandbox, which is why this
+	    app cannot ship on the Mac App Store and uses Developer ID instead.
+	-->
+	<key>com.apple.security.device.audio-input</key>
+	<true/>
+</dict>
+</plist>
