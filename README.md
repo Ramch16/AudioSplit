@@ -375,7 +375,55 @@ macOS app cannot — process taps and aggregate devices do not work under App
 Sandbox, which the Mac App Store requires. macOS distribution is Developer ID
 plus notarization.
 
+## Building a release
+
+```
+Scripts/make-dmg.sh                    # release build, signed, wrapped in a DMG
+Scripts/notarize.sh dist/AudioSplit-1.0.dmg
+```
+
+`make-dmg.sh` refuses to package an app without Hardened Runtime, since
+notarization would reject it later and the failure is easier to read here.
+
+### Hardened Runtime and taps
+
+Whether Core Audio process taps survive Hardened Runtime was the last unverified
+assumption in the project, and it mattered because notarization requires it.
+They do. A build signed `flags=0x10000(runtime)` with
+`com.apple.security.device.audio-input` captures a routed tone and shows level
+on the meter. Signing applies it by default; `HARDENED=0 Scripts/make-app.sh
+AudioSplitApp` builds without it for comparison when debugging a capture
+failure.
+
+### What you need to distribute
+
+An **Apple Development** certificate is enough for your own Mac. On anyone
+else's, Gatekeeper rejects it — verifiable with
+`spctl --assess --type execute dist/AudioSplit.app`, which reports `rejected`
+for an un-notarized build. Distribution needs a paid Apple Developer Program
+membership, a Developer ID Application certificate, and notarization.
+
+The Mac App Store is not an option at all: process taps and aggregate devices do
+not work under App Sandbox, which the store requires.
+
+### Only one copy at a time
+
+Two instances each hold their own `mutedWhenTapped` taps. When both tap the same
+app, its audio is pulled out of its original path twice and neither instance can
+tell — each sees a healthy route, a live aggregate and a running IOProc while
+the user hears nothing. A second copy therefore refuses to start.
+
+The check lives in `AppModel.init`, not in an `NSApplicationDelegate` callback:
+SwiftUI constructs `@State` before any delegate hook runs, and a guard in the
+delegate let the second copy load routes, register the hotkey and open its
+remote listener before quitting. The milestone harnesses keep their own bundle
+identifiers and are allowed to run, but are named in Activity, because a
+leftover harness holding a tap on Safari is exactly the invisible failure this
+guards against.
+
 ## License
+
+
 
 
 

@@ -21,8 +21,13 @@ case "$PRODUCT" in
   AudioSplitApp) APP="dist/$NAME.app" ;;
   *)             APP="dist/harnesses/$NAME.app" ;;
 esac
-IDENTITY="${CODESIGN_IDENTITY:-$(security find-identity -v -p codesigning \
-  | grep -m1 "Apple Development" | sed -E 's/.*"(.*)".*/\1/')}"
+IDENTITY="${CODESIGN_IDENTITY:-}"
+if [ -z "$IDENTITY" ]; then
+  # `|| true`: an assignment adopts its command substitution's exit status, and
+  # `set -e` would otherwise kill the script on a machine with no certificate.
+  IDENTITY="$(security find-identity -v -p codesigning \
+    | grep -m1 "Apple Development" | sed -E 's/.*"(.*)".*/\1/' || true)"
+fi
 
 swift build -c "$CONFIG" --product "$PRODUCT"
 

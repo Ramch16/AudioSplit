@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Build and test
+    # Needs a macOS runner recent enough to have the Core Audio process tap API.
+    runs-on: macos-15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: swift --version
+
+      - name: Build
+        run: swift build
+
+      - name: Test
+        run: swift test
+
+      # The reason this job exists: AudioSplitShared must stay free of anything
+      # macOS-only, or the iPhone and iPad remote silently stops building. A
+      # stray `import AppKit` in a shared file would otherwise only surface when
+      # someone next opened Xcode.
+      - name: Shared module must compile for iOS
+        run: |
+          xcrun -sdk iphoneos swiftc \
+            -target arm64-apple-ios17.0 -swift-version 6 \
+            -typecheck Sources/AudioSplitShared/*.swift
+
+      - name: macOS app builds
+        run: |
+          xcodebuild -project AudioSplit.xcodeproj -scheme AudioSplit \
+            -configuration Debug -derivedDataPath .ci-build build \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: iOS remote builds
+        run: |
+          xcodebuild -project AudioSplit.xcodeproj -scheme AudioSplitRemote \
+            -configuration Debug -sdk iphonesimulator \
+            -derivedDataPath .ci-build build CODE_SIGNING_ALLOWED=NO
