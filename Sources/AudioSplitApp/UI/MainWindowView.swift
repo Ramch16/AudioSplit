@@ -5,6 +5,7 @@ enum Section: String, CaseIterable, Identifiable {
     case routes = "Routes"
     case devices = "Devices"
     case activity = "Activity"
+    case remote = "Remote"
 
     var id: String { rawValue }
 
@@ -13,6 +14,7 @@ enum Section: String, CaseIterable, Identifiable {
         case .routes: "arrow.triangle.branch"
         case .devices: "hifispeaker.2"
         case .activity: "waveform"
+        case .remote: "iphone.gen3"
         }
     }
 }
@@ -45,6 +47,7 @@ struct MainWindowView: View {
                 case .routes: RoutesView(model: model)
                 case .devices: DevicesView(model: model)
                 case .activity: ActivityView(model: model)
+                case .remote: RemoteView(model: model)
                 }
             }
             .frame(minWidth: 520, minHeight: 420)

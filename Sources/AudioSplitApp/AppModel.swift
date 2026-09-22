@@ -20,6 +20,8 @@ final class AppModel {
     private(set) var deviceControls: [String: DeviceControlState] = [:]
     private(set) var preferences = Preferences()
     private(set) var hotKeyFailed = false
+    private(set) var remoteClientCount = 0
+    private(set) var remoteError: String?
     private(set) var audibleApps: [AudibleApp] = []
     private(set) var levels: [Route.ID: Float] = [:]
     private(set) var lastError: String?
@@ -46,6 +48,7 @@ final class AppModel {
         var canMute: Bool
     }
     private let hotKeyMonitor = HotKeyMonitor()
+    private let remoteServer = RemoteServer()
 
     /// Our own bundle ID — routing AudioSplit through itself would be a loop.
     private let ownBundleID = Bundle.main.bundleIdentifier ?? "com.audiosplit.AudioSplit"
@@ -109,7 +112,145 @@ final class AppModel {
         }
 
         applyHotKey()
+
+        remoteServer.onCommand = { [weak self] command in
+            self?.handle(command)
+        }
+        remoteServer.onClientsChanged = { [weak self] count in
+            self?.remoteClientCount = count
+        }
+        applyRemoteSetting()
+
         reconcile()
+    }
+
+    // MARK: - iPhone / iPad remote
+    //
+    // The remote renders state and sends intent; every decision stays here on
+    // the Mac. That is not a simplification — iOS has no Core Audio HAL, so a
+    // phone physically cannot run the engine.
+
+    var isRemoteEnabled: Bool { preferences.isRemoteEnabled }
+    var pairingCode: String { preferences.pairingCode }
+    var isRemoteRunning: Bool { remoteServer.isRunning }
+
+    func setRemoteEnabled(_ enabled: Bool) {
+        preferences.isRemoteEnabled = enabled
+        if enabled, preferences.pairingCode.isEmpty {
+            preferences.pairingCode = RemoteServer.generatePairingCode()
+        }
+        persist()
+        applyRemoteSetting()
+    }
+
+    /// Issue a new code. Any connected remote drops immediately, which is the
+    /// point — this is how you revoke a device you no longer trust.
+    func regeneratePairingCode() {
+        preferences.pairingCode = RemoteServer.generatePairingCode()
+        persist()
+        applyRemoteSetting()
+    }
+
+    private func applyRemoteSetting() {
+        remoteServer.stop()
+        remoteClientCount = 0
+        guard preferences.isRemoteEnabled else {
+            remoteError = nil
+            return
+        }
+        do {
+            try remoteServer.start(
+                pairingCode: preferences.pairingCode,
+                serviceName: Host.current().localizedName ?? "Mac"
+            )
+            remoteError = nil
+            Diagnostics.log("remote listening, pairing code \(preferences.pairingCode)")
+        } catch {
+            remoteError = "Could not start the remote: \(error)"
+            Diagnostics.log("remote failed to start: \(error)")
+        }
+    }
+
+    /// Apply a command from a remote. Each case routes to the same method the
+    /// local UI calls, so a remote can never do something the Mac's own
+    /// interface cannot.
+    private func handle(_ command: RemoteCommand) {
+        func route(_ id: UUID) -> Route? { routes.first { $0.id == id } }
+
+        switch command {
+        case let .addRoute(bundleID, displayName, destinationUID):
+            addRoute(
+                app: AudibleApp(
+                    bundleID: bundleID,
+                    displayName: displayName,
+                    isProducingOutput: false,
+                    processCount: 0,
+                    isRoutable: true
+                ),
+                destinationUID: destinationUID
+            )
+        case let .removeRoute(id):
+            if let route = route(id) { remove(route) }
+        case let .setDestination(id, uid):
+            if let route = route(id) { setDestination(uid, for: route) }
+        case let .setVolume(id, volume):
+            if let route = route(id) { setVolume(volume, for: route); commitParameters() }
+        case let .setMuted(id, muted):
+            if let route = route(id) { setMuted(muted, for: route) }
+        case let .setDelay(id, milliseconds):
+            if let route = route(id) { setDelay(milliseconds, for: route); commitParameters() }
+        case let .setEnabled(id, enabled):
+            if let route = route(id) { setEnabled(enabled, for: route) }
+        case let .setDefaultOutput(uid):
+            setDefaultOutput(uid: uid)
+        case let .setDefaultInput(uid):
+            setDefaultInput(uid: uid)
+        case let .setDeviceVolume(uid, volume):
+            if let device = device(withUID: uid) { setDeviceVolume(volume, for: device) }
+        case let .setDeviceMuted(uid, muted):
+            if let device = device(withUID: uid) { setDeviceMuted(muted, for: device) }
+        case .toggleInput:
+            toggleInput()
+        case .restoreAllAudio:
+            restoreAllAudio()
+        }
+        broadcastToRemotes()
+    }
+
+    private func device(withUID uid: String) -> AudioDeviceInfo? {
+        (outputDevices + inputDevices).first { $0.uid == uid }
+    }
+
+    private func broadcastToRemotes() {
+        guard remoteServer.isRunning, remoteClientCount > 0 else { return }
+
+        let remoteDevices = (outputDevices + inputDevices).map { device -> RemoteDevice in
+            let control = control(for: device)
+            return RemoteDevice(
+                uid: device.uid,
+                name: device.name,
+                transport: device.transportDescription,
+                canOutput: device.canOutput,
+                canInput: device.canInput,
+                isDefaultOutput: device.uid == defaultOutputUID,
+                isDefaultInput: device.uid == defaultInputUID,
+                volume: control.volume,
+                isMuted: control.isMuted,
+                canSetVolume: control.canSetVolume,
+                canMute: control.canMute
+            )
+        }
+
+        remoteServer.broadcast(RemoteSnapshot(
+            hostName: Host.current().localizedName ?? "Mac",
+            routes: routes,
+            statuses: statuses,
+            levels: levels,
+            devices: remoteDevices,
+            audibleApps: audibleApps,
+            preferences: preferences,
+            captureLooksBroken: mayBeMissingPermission
+        ))
     }
 
     func refreshInventory() {
@@ -248,6 +389,7 @@ final class AppModel {
                 Diagnostics.log("failed \(failure.destinationDeviceUID): \(failure.message)")
             }
             lastError = failures.first.map { "\($0.destinationDeviceUID): \($0.message)" }
+            broadcastToRemotes()
         } catch {
             Diagnostics.log("reconcile error: \(error)")
             lastError = String(describing: error)
@@ -286,6 +428,8 @@ final class AppModel {
                 && (next[route.id] ?? 0) == 0
         }
         silentWhilePlayingTicks = capturedNothing ? silentWhilePlayingTicks + 1 : 0
+
+        broadcastToRemotes()
     }
 
     // MARK: - Editing

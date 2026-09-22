@@ -7,7 +7,7 @@ Free and open source. macOS 14.4+. Not sandboxed (Core Audio process taps and
 aggregate devices are unavailable inside the App Sandbox), so it is distributed
 directly, not through the Mac App Store.
 
-**Status: M5 (delay and input switching) complete.**
+**Status: macOS app complete, with an iPhone and iPad remote.**
 
 ## Building
 
@@ -323,7 +323,61 @@ End to end, a routed tone measured -11.2 dBFS with no delay and -11.2 dBFS with
 corrupts. Switching the default input to another device and back worked through
 the same call the UI makes.
 
+## iPhone and iPad
+
+There is no iOS port of the routing engine, and there cannot be one.
+
+Verified against the iOS 27 SDK: `AudioHardware.h` and `AudioHardwareTapping.h`
+are not present, and `AudioHardwareCreateProcessTap`,
+`AudioHardwareCreateAggregateDevice`, `AudioDeviceCreateIOProcIDWithBlock`,
+`AudioObjectGetPropertyData`, `kAudioHardwarePropertyProcessObjectList` and
+`CATapDescription` do not exist there at all. iOS has no Core Audio HAL. More
+fundamentally, AudioSplit works by capturing other apps' audio and muting them
+at the source, which is exactly what the iOS sandbox exists to prevent — a tap
+API on iOS would be a system-wide eavesdropping primitive.
+
+What does work is a remote control. `AudioSplitRemote` is a SwiftUI app for
+iPhone and iPad that drives the Mac over the local network: add and remove
+routes, change destinations, volume, mute and delay, switch the system input and
+output, and hit Restore All Audio from across the room. No audio crosses the
+wire — only state and intent.
+
+```
+open AudioSplit.xcodeproj      # schemes: AudioSplit (macOS), AudioSplitRemote (iOS)
+```
+
+On the Mac, turn it on under **Remote → Allow remote control**; it is off by
+default. Pair by typing the six-character code the Mac shows.
+
+### Why a pairing code rather than open on the LAN
+
+AudioSplit is deliberately not sandboxed and can mute or re-route every app on
+the machine. An unauthenticated listener would hand that to anyone on the same
+network. The connection is TLS with a pre-shared key derived from the pairing
+code, so an unpaired device fails the handshake — there is no unauthenticated
+request to reject later, and nothing readable on the wire. Bonjour advertises
+the service for discovery, but discovery is not authorisation. Issuing a new
+code drops every paired device, which is how you revoke one.
+
+### The module split
+
+`AudioSplitShared` holds everything both platforms can use: the `Route` and
+`Preferences` models, `DelayLimits`, and the wire protocol and transport.
+`AudioSplitEngine` holds everything that requires the HAL. The boundary is
+checked rather than assumed — `AudioSplitShared` typechecks for
+`arm64-apple-ios17.0` on the device and simulator SDKs, and `AudioSplitEngine`
+deliberately does not.
+
+### App Store
+
+The iOS remote can ship to the App Store; it touches no restricted API. The
+macOS app cannot — process taps and aggregate devices do not work under App
+Sandbox, which the Mac App Store requires. macOS distribution is Developer ID
+plus notarization.
+
 ## License
+
+
 
 
 

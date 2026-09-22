@@ -39,13 +39,40 @@ public struct Preferences: Codable, Hashable, Sendable {
     /// rather than forgotten.
     public var inputToggleDeviceUIDs: [String]
     public var inputToggleHotKey: HotKeyBinding
+    /// Whether this Mac accepts connections from the iPhone/iPad remote.
+    /// Off by default — a listener that can re-route every app's audio is not
+    /// something to switch on without the user asking for it.
+    public var isRemoteEnabled: Bool
+    /// The code a remote must present to complete the TLS handshake.
+    public var pairingCode: String
 
     public init(
         inputToggleDeviceUIDs: [String] = [],
-        inputToggleHotKey: HotKeyBinding = .default
+        inputToggleHotKey: HotKeyBinding = .default,
+        isRemoteEnabled: Bool = false,
+        pairingCode: String = ""
     ) {
         self.inputToggleDeviceUIDs = inputToggleDeviceUIDs
         self.inputToggleHotKey = inputToggleHotKey
+        self.isRemoteEnabled = isRemoteEnabled
+        self.pairingCode = pairingCode
+    }
+
+    // Files written before the remote existed decode with it switched off.
+    private enum CodingKeys: String, CodingKey {
+        case inputToggleDeviceUIDs, inputToggleHotKey, isRemoteEnabled, pairingCode
+    }
+
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        inputToggleDeviceUIDs = try container
+            .decodeIfPresent([String].self, forKey: .inputToggleDeviceUIDs) ?? []
+        inputToggleHotKey = try container
+            .decodeIfPresent(HotKeyBinding.self, forKey: .inputToggleHotKey) ?? .default
+        isRemoteEnabled = try container
+            .decodeIfPresent(Bool.self, forKey: .isRemoteEnabled) ?? false
+        pairingCode = try container
+            .decodeIfPresent(String.self, forKey: .pairingCode) ?? ""
     }
 
     /// Whether the pair can actually be toggled between.
